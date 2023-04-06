@@ -16,4 +16,4 @@
 
 `limoncatt` `lemon cat` `???`.
 
-![Alt text](./laptop-svgrepo-com.svg)
+![Alt text](https://th.bing.com/th/id/OIP.pnMxMRQx6Os2veQrjoiUpAAAAA?pid=ImgDet&rs=1)
