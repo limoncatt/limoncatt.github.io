@@ -4,7 +4,7 @@
 
 ### **i *love* coding**
 
-> >print(gachi)
+> python> print(gachi)
 
 > ['BILLY HERRINGTON']
 
