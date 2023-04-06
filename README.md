@@ -1,6 +1,8 @@
 ## **hi, im limoncatt.**
 
-**i know *these* languages `CSS` `HTML` `MARKDOWN` `PYTHON` `C#` `UNREAL BLUEPRINTS` `LUA`.**
+**i know *these* languages**
+
+`CSS` `HTML` `MARKDOWN` `PYTHON` `C#` `UNREAL BLUEPRINTS` `LUA`.
 
 ### **i'm *15* years old**
 
