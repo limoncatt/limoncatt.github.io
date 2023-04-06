@@ -1,3 +1,1 @@
-fontfamily: monospace
-
 <span style="color:red">hi, it's me, limoncatt.</span>
