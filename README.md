@@ -1,1 +1,1 @@
-<span style="font-family: monospace;">hi, it's me, limoncatt.</span>
+<span style="font-family:monospace">hi, it's me, limoncatt.</span>
