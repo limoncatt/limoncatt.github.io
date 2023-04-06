@@ -1,6 +1,4 @@
-# hi, it's me, limoncatt, what do you want?
-
-## I know:
+hi, im limoncatt
 
 > `CSS` `HTML` `MARKDOWN` `PYTHON` `C#` `UNREAL BLUEPRINTS`
 
