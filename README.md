@@ -1,23 +1,23 @@
 ## **hi, im limoncatt.**
 
-**languages**
+**Languages**
 
 `CSS` `HTML` `MARKDOWN` `PYTHON` `C#` `UNREAL BLUEPRINTS` `LUA`.
 
-**pronouns**
+**Pronouns**
 
-`he` `him` `dungeon master`.
+`He` `Him` `dungeon master`.
 
-**projects**
+**Projects**
 
 `SkyRail Mini (UNITY 2D)` `SkyTechDev Page (HTML + CSS)` `Open Mind (UNREAL BLUEPRINTS)`.
 
-**names**
+**Names**
 
 `limoncatt` `lemon cat` `???`.
 
-**favourite food**
+**Favourite Food**
 
-`limoncatt` `lemon cat` `???`.
+`Butter Toast` `Pizza` `McVegan`.
 
 ![Alt text](https://th.bing.com/th/id/OIP.pnMxMRQx6Os2veQrjoiUpAAAAA?pid=ImgDet&rs=1)
