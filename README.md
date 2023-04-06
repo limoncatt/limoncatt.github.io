@@ -2,6 +2,6 @@
 
 ## I know:
 
-'CSS'
+`CSS`
 - HTML
 - MARKDOWN
