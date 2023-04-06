@@ -2,6 +2,6 @@
 
 ## I know:
 
-l. CSS
-l. HTML
-l. MARKDOWN
+- CSS
+- HTML
+- MARKDOWN
