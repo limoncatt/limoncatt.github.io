@@ -2,6 +2,4 @@
 
 ## I know:
 
-`CSS`
-- HTML
-- MARKDOWN
+`CSS` `HTML` `MARKDOWN` `PYTHON` `C#` `UNREAL BLUEPRINTS`
