@@ -10,7 +10,7 @@
 
 **Projects**
 
-`SkyRail Mini (UNITY 2D)` `SkyTechDev Page (HTML + CSS)` `Open Mind (UNREAL BLUEPRINTS)`.
+`SkyRail Mini (C#)` `SkyTechDev Page (HTML + CSS)` `Open Mind (UNREAL BLUEPRINTS)`.
 
 **Names**
 
