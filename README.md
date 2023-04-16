@@ -23,5 +23,5 @@
 </div>
 
 <div align="center">
-  <img src="slash.png" height="40" width="40" alt="python logo"  />
+  <img src="slash.png" height="40" width="20" alt="Slash"/>
 </div>
