@@ -1,6 +1,6 @@
 ## **hi, im limoncatt.**
-
-**Languages**
+<div align="center">
+	**Languages**
 
 `CSS` `HTML` `MARKDOWN` `PYTHON` `C#` `UNREAL BLUEPRINTS` `LUA`.
 
@@ -19,5 +19,4 @@
 **Favourite Food**
 
 `Butter Toast` `Pizza` `McVegan`.
-
-![Alt text](https://th.bing.com/th/id/OIP.pnMxMRQx6Os2veQrjoiUpAAAAA?pid=ImgDet&rs=1)
+</div>
