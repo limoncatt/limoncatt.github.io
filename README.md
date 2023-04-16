@@ -1,6 +1,6 @@
 ## **hi, im limoncatt.**
 <div align="center">
-	
+
 **Languages**
 
 `CSS` `HTML` `MARKDOWN` `PYTHON` `C#` `UNREAL BLUEPRINTS` `LUA`.
@@ -20,4 +20,8 @@
 **Favourite Food**
 
 `Butter Toast` `Pizza` `McVegan`.
+</div>
+
+<div align="center">
+  <img src="slash.png" height="40" width="40" alt="python logo"  />
 </div>
