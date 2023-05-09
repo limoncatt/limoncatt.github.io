@@ -42,25 +42,26 @@ p{
 	user-select: none;
 }
 
-button{
+a{
 	transition: 0.3s;
-	scale: 2;
 	background-color: darksalmon;
 	border-radius: 50px;
 	font-family: monospace;
-	border-width: 5px;
+	border-width: 2px;
 	border-color: whitesmoke;
-	border-style: solid;
+	border-style: dashed;
+	font-size: 5vh;
+	text-decoration: none;
+	color: whitesmoke;
 }
 
-button:hover{
+a:hover{
 	scale: 2;
 	background-color: whitesmoke;
 	border-radius: 50px;
 	font-family: monospace;
-	border-width: 0px;
 	border-color: darksalmon;
-	border-style: solid;
+	color: darksalmon;
 }
 
 .card{
@@ -68,12 +69,16 @@ button:hover{
   transition: 0.3s;
   background-color: whitesmoke;
   border-radius: 2.5vw;
+  border-width: 3px;
+  border-color: darksalmon;
+ 	border-style: dashed;
 }
 
 .card:hover{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   background-color: darksalmon;
-  border-radius: 2.6vw;
+	border-color: whitesmoke;
+	border-style: dashed;
 }
 
 .container{
@@ -88,4 +93,19 @@ button:hover{
 .headerwrapper {
 	margin-left: 15vw;
 	margin-right: 15vw;
+}
+
+.sexylady{
+	transition: 0.3s;
+	position: sticky;
+	text-align: justify;
+	background-color: whitesmoke;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.sexylady:hover{
+	opacity: 0%;
 }
