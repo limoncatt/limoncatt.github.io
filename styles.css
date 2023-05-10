@@ -118,15 +118,9 @@ a:hover{
 }
 
 .sexylady{
+  position: sticky;
 	transition: 0.3s;
-	text-align: justify;
+	text-align: center;
+	height: auto;
 	background-color: whitesmoke;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-}
-
-.sexylady:hover{
-	opacity: 0%;
 }
