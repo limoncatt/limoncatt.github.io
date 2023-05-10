@@ -117,10 +117,10 @@ a:hover{
 	margin-right: 15vw;
 }
 
-.sexylady{
+footer{
+	background-color: whitesmoke;
   position: sticky;
-	transition: 0.3s;
 	text-align: center;
 	height: auto;
-	background-color: whitesmoke;
+	top: 100%;
 }
