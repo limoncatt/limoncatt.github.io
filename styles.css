@@ -51,6 +51,8 @@ h6{
 	text-align: center;
 	font-size: 10px;
 	user-select: none;
+	font-smooth: always;
+	color: whitesmoke;
 }
 
 p{
@@ -118,7 +120,6 @@ a:hover{
 }
 
 footer{
-	background-color: whitesmoke;
   position: sticky;
 	text-align: center;
 	height: auto;
