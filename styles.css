@@ -1,127 +1,37 @@
 body{
-	background-color: darksalmon;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-h1{
-	font-family: monospace;
-	align-content: space-around;
-	text-align: center;
-	content: "";
-	background-color: whitesmoke;
-	border-radius: 50px;
-	font-size: 50px;
-	user-select: none;
-}
-
-h2{
-	font-family: monospace;
-	background-color: whitesmoke;
-	border-radius: 50px;
-	font-size: 40px;
-	align-content: space-around;
-	text-align: center;
-	user-select: none;
-}
-
-h3{
-	font-family: monospace;
-	text-align: center;
-	user-select: none;
-	font-size: 25px;
-}
-
-h4{
-	font-family: monospace;
-	text-align: left;
-	font-size: 30px;
-	user-select: none;
-}
-
-h5{
-	font-family: monospace;
-	text-align: left;
-	font-size: 20px;
-	user-select: none;
-}
-
-h6{
-	font-family: monospace;
-	text-align: center;
-	font-size: 10px;
-	user-select: none;
-	font-smooth: always;
-	color: whitesmoke;
-}
-
-p{
-	font-family: monospace;
-	text-align: left;
-	font-size: 20px;
-	user-select: none;
+	background: url(bg.png);
+	margin: 0 0;
+	background-attachment: fixed;
+	background-size: cover;
 }
 
 a{
-	transition: 0.3s;
-	background-color: darksalmon;
-	border-radius: 50px;
+
+	color: #FFF;
 	font-family: monospace;
-	border-width: 2px;
-	border-color: whitesmoke;
-	border-style: dashed;
-	font-size: 50px;
-	text-decoration: none;
-	color: whitesmoke;
+	font-size: 32px;
+	font-style: normal;
+	font-weight: 900;
+	line-height: normal;
 }
 
-a:hover{
-	scale: 2;
-	background-color: whitesmoke;
-	border-radius: 50px;
-	font-family: monospace;
-	border-color: darksalmon;
-	color: darksalmon;
+.header{
+	display: flex;
+	flex-direction: row;
+	padding: 25px;
+	flex-shrink: 0;
+	margin: 15px 15px;
+	border-radius: 20px;
+	background: #0A0A1E;
+	box-shadow: 2px 2px 0px 0px #373741 inset, -2px -2px 0px 0px rgba(0, 0, 0, 0.25) inset;
 }
 
-.card{
-	padding: 6px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  background-color: whitesmoke;
-  border-radius: 50px;
-  border-width: 3px;
-  border-color: darksalmon;
- 	border-style: dashed;
+.secondarythings{
+	display: flex;
+	flex-direction: row;
 }
 
-.card:hover{
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  background-color: darksalmon;
-	border-color: whitesmoke;
-	border-style: dashed;
+.secs{
+	margin-left: 5rem;
 }
 
-.container{
-  padding: 2px 16px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.wrapper {
-	margin-left: 10vw;
-	margin-right: 10vw;
-}
-
-.headerwrapper {
-	margin-left: 15vw;
-	margin-right: 15vw;
-}
-
-footer{
-  position: sticky;
-	text-align: center;
-	height: auto;
-	top: 100%;
-}
