@@ -22,7 +22,7 @@
 `Butter Toast` `Pizza` `McVegan`.
 </div>
 
-<img src="assets/slash.png" height="40" width="20" alt="Slash"/>
+<img src="slash.png" height="40" width="20" alt="Slash"/>
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id posuere lorem. Quisque aliquam mattis purus, nec tincidunt enim aliquam ac. In eget mollis nulla, id laoreet sapien. Suspendisse pellentesque, elit ut finibus interdum, arcu est sagittis augue, at semper justo lectus id ante. Sed at arcu est. Mauris a finibus ante, in imperdiet nibh. Morbi vulputate justo ac malesuada imperdiet. Donec lacinia metus ac lectus iaculis ornare. Vivamus non purus sit amet elit varius consequat a in mi. Duis nec nulla fermentum, pellentesque tortor sed, sagittis mauris. Quisque sed placerat ex. Pellentesque lacinia est quis ex elementum, et tincidunt tortor consectetur. Pellentesque quis sagittis ante. Nullam luctus, ex et consectetur posuere, nulla enim bibendum magna, volutpat efficitur nibh enim vitae augue. Nunc ullamcorper lobortis felis, sed auctor lacus tempus suscipit. Nunc eget accumsan elit.
 Aenean scelerisque, mauris sit amet varius malesuada, eros ex fermentum quam, a aliquet dui sem ac arcu. Nulla faucibus maximus lacus, sit amet faucibus felis interdum sit amet. Nam fermentum egestas efficitur. Pellentesque quis justo diam. Nam vehicula lorem urna, nec suscipit neque elementum commodo. Cras pellentesque elit orci, eu posuere turpis dictum a. Ut leo nisl, faucibus et bibendum ac, elementum at turpis. Mauris non felis placerat, scelerisque justo sit amet, porttitor sapien. Pellentesque consectetur lectus sed nibh sagittis, id dictum felis tincidunt.
