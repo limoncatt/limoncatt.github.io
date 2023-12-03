@@ -1,3 +1,8 @@
+@font-face {
+	font-family: Inter;
+	src: url(Inter.ttf);
+}
+
 body{
 	background: url(bg.png);
 	margin: 0 0;
@@ -6,24 +11,20 @@ body{
 }
 
 a{
-
 	color: #FFF;
-	font-family: monospace;
+	font-family: Inter;
 	font-size: 32px;
-	font-style: normal;
-	font-weight: 900;
+	text-decoration: none;
 	line-height: normal;
 }
 
 .header{
-	display: flex;
-	flex-direction: row;
 	padding: 25px;
 	flex-shrink: 0;
 	margin: 15px 15px;
 	border-radius: 20px;
 	background: #0A0A1E;
-	box-shadow: 2px 2px 0px 0px #373741 inset, -2px -2px 0px 0px rgba(0, 0, 0, 0.25) inset;
+	box-shadow: 2px 2px 1px 0px #373741 inset, -2px -2px 1px 0px rgba(0, 0, 0, 0.25) inset;
 }
 
 .secondarythings{
@@ -32,6 +33,7 @@ a{
 }
 
 .secs{
-	margin-left: 5rem;
+	float: right;
+	margin-left: 7rem;
 }
 
