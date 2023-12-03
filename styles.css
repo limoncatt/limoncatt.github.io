@@ -4,7 +4,7 @@
 }
 
 body{
-	background: url(bg.png);
+	background-color: #0A0A1E;
 	margin: 0 0;
 	background-attachment: fixed;
 	background-size: cover;
@@ -19,7 +19,7 @@ a{
 }
 
 .header{
-	padding: 25px;
+	padding: 2rem;
 	flex-shrink: 0;
 	margin: 15px 15px;
 	border-radius: 20px;
@@ -35,5 +35,13 @@ a{
 .secs{
 	float: right;
 	margin-left: 7rem;
+}
+
+.designworld{
+	margin: 15px 15px;
+	color: #FFF;
+	font-family: Inter;
+	font-size: 5rem;
+	line-height: normal;
 }
 
