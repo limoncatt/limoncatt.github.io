@@ -51,6 +51,32 @@ a:hover{
 	float: left;
 }
 
+.navbarbottom ul{
+	list-style-type: none;
+	text-wrap: nowrap;
+	overflow: hidden;
+	padding: 0;
+	margin: 1rem;
+	border-radius: 20px;
+	background: rgba(25, 0, 25, 1);
+	box-shadow: 2px 2px 1px 0px rgba(255, 255, 255, 0.25) inset, -2px -2px 1px 0px rgba(0, 0, 0, 1) inset;
+}
+
+.navbarbottom a{
+	display: block;
+	padding: 1rem;
+	text-align: center;
+}
+
+.navbarbottom p{
+	color: #dddddd;
+	font-family: Inter;
+	font-size: 1.7rem;
+	width: auto;
+	word-spacing: .5rem;
+	text-align: center;
+}
+
 .secondarythings{
 	display: flex;
 	flex-direction: row;
