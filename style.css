@@ -14,10 +14,12 @@ a{
     font-size: 2rem;
     text-decoration: none;
     transition: 0.3s;
+    transform: scale(1);
 }
 
 a:hover{
     color: snow;
+    transform: scale(1.01);
 }
 
 p{
@@ -28,6 +30,11 @@ p{
     font-size: 1rem;
     text-decoration: none;
     transition: 0.3s;
+    transform: scale(1);
+}
+
+p:hover{
+    transform: scale(1.01);
 }
 
 div.maincard1{
@@ -37,8 +44,28 @@ div.maincard1{
     background-color: #252525;
     outline: 0.1rem solid bisque;
     border-radius: 0.5rem;
+    transition: 0.3s;
+    transform: scale(1);
+}
+
+div.maincard1:hover{
+    transform: scale(1.01);
 }
 
 div.title{
     display: flex;
+    justify-content: space-around;
+}
+
+img{
+    display: flex;
+    outline: 0.1rem solid bisque;
+    border-radius: 0.25rem;
+    margin-left: 5rem;
+    transition: 0.3s;
+    transform: scale(1);
+}
+
+img:hover{
+    transform: scale(1.01);
 }
