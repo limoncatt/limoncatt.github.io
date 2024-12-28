@@ -23,8 +23,8 @@ a:hover{
 }
 
 p{
-    text-wrap: pretty;
     margin: 1rem;
+    text-wrap: pretty; 
     color: bisque;
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
@@ -58,14 +58,21 @@ div.title{
 }
 
 img{
+    margin: 1rem;
     display: flex;
     outline: 0.1rem solid bisque;
     border-radius: 0.25rem;
-    margin-left: 5rem;
+    margin-left: auto;
     transition: 0.3s;
     transform: scale(1);
 }
 
 img:hover{
     transform: scale(1.01);
+}
+
+div.flexcolumnmargin2rem{
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
 }
