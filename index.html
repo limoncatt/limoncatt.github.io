@@ -1,62 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <script type="importmap">
-        {
-            "imports": {
-                "@material/web/": "https://esm.run/@material/web/"
-            }
-        }
-    </script>
-    <script type="module">
-        import '@material/web/all.js';
-        import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
-
-        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
-    </script>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>limoncatt</title>
+    <link rel="preload" href="fonts/GoogleSansFlex.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="vendor/material.js"></script>
+    <script src="main.js" defer></script>
 </head>
 <body>
-    <md-linear-progress style="display: none;" indeterminate></md-linear-progress>
     <md-tabs id="PageTabsSwitcher">
-        <md-primary-tab data-action="home">Home</md-primary-tab>
-        <md-primary-tab data-action="projects">Projects</md-primary-tab>
-        <md-primary-tab data-action="github">Github</md-primary-tab>
-        <md-primary-tab data-action="aboutme">About Me</md-primary-tab>
+        <md-primary-tab id="tab-home" data-action="home" aria-controls="panel-home">Home</md-primary-tab>
+        <md-primary-tab id="tab-projects" data-action="projects" aria-controls="panel-projects">Projects</md-primary-tab>
+        <md-primary-tab id="tab-github" data-action="github" aria-controls="panel-github">Github</md-primary-tab>
+        <md-primary-tab id="tab-aboutme" data-action="aboutme" aria-controls="panel-aboutme">About Me</md-primary-tab>
     </md-tabs>
-    <div class="contentpage">        
-        <div class="homepage">
-            <p style="font-weight: 700; font-size: 2.5rem;">Home</p>
+    <main class="contentpage">
+        <section id="panel-home" class="homepage" role="tabpanel" aria-labelledby="tab-home">
+            <h1>Home</h1>
             <p>Nothing to see on this page.</p>
-        </div>
-        <div class="projectspage">
-            <p style="font-weight: 700; font-size: 2.5rem;">Projects</p>
+        </section>
+        <section id="panel-projects" class="projectspage" role="tabpanel" aria-labelledby="tab-projects" hidden>
+            <h1>Projects</h1>
             <ul>
                 <li>
-                    <p style=" font-size: 1.25rem;">Material 3 Expressive Custom (this website) [Personal Project used as a portfolio]</p>
+                    <h2>Material 3 Expressive Custom (this website) [Personal Project used as a portfolio]</h2>
                     <p>This project does not in any way meet the Material 3 Expressive design rules made up by google but it is meant to replicate material's behaviour and look like it directly even if not meeting the criteria.</p>
                 </li>
                 <li>
-                    <p style=" font-size: 1.25rem;">Project South (Unreal Engine) [Cancelled]</p>
+                    <h2>Project South (Unreal Engine) [Cancelled]</h2>
                     <p>Development started in early 2023 continuing into 2025 but cancelled in 2026 due to a LOT of broken, outdated, unoptimized and straight up spaghetti code.</p>
-                </li>         
+                </li>
                 <li>
-                    <p style=" font-size: 1.25rem;">Project Material (Unreal Engine) [Prototyping phase]</p>
+                    <h2>Project Material (Unreal Engine) [Prototyping phase]</h2>
                     <p>Development started in January of 2026, a replacement for Project South, but based on an older version of Unreal Engine (5.4.4), is supposed to be a run-based singleplayer resource harvesting game something like R.E.P.O. by semiwork.</p>
                 </li>
             </ul>
-        </div>
-        <div class="githubpage">
-            <p style="font-weight: 700; font-size: 2.5rem;">Github Page</p>
+        </section>
+        <section id="panel-github" class="githubpage" role="tabpanel" aria-labelledby="tab-github" hidden>
+            <h1>Github Page</h1>
             <md-filled-button href="https://github.com/limoncatt" target="_blank">
-               Redirect to my Github profile
+                Redirect to my Github profile
             </md-filled-button>
-        </div>
-        <div class="aboutmepage">
-            <p style="font-weight: 700; font-size: 2.5rem;">About me</p>
-        </div>
-    </div>
+        </section>
+        <section id="panel-aboutme" class="aboutmepage" role="tabpanel" aria-labelledby="tab-aboutme" hidden>
+            <h1>About me</h1>
+        </section>
+    </main>
 </body>
-
-<script src="main.js"></script>
+</html>
