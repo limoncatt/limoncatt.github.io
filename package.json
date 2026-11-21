@@ -1,0 +1,15 @@
+{
+  "name": "limoncatt-github-io",
+  "private": true,
+  "description": "Personal site. Material Web is bundled locally so the page does not depend on a CDN at runtime.",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/material.js --bundle --minify --format=esm --outfile=vendor/material.js"
+  },
+  "dependencies": {
+    "@material/web": "2.5.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

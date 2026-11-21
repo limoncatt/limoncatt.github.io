@@ -1,6 +1,9 @@
 @font-face {
     font-family: GoogleSansFlex;
-    src: url(GoogleSansFlex-VariableFont_GRAD\,ROND\,opsz\,slnt\,wdth\,wght.ttf);
+    src: url(fonts/GoogleSansFlex.woff2) format("woff2");
+    /* Declare the variable weight axis range so 700 is a real weight, not faux bold. */
+    font-weight: 1 1000;
+    font-display: swap;
 }
 
 :root {
@@ -61,13 +64,35 @@
 body{
     margin: 0;
     background-color: var(--md-sys-color-background);
-}
-
-div{
-    font-family: GoogleSansFlex;
+    font-family: GoogleSansFlex, sans-serif;
     color: var(--md-sys-color-primary);
 }
 
 .contentpage{
     margin: 1rem;
+}
+
+h1{
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1em 0;
+}
+
+h2{
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin: 1em 0;
+}
+
+/* Readable, clickable fallback while the Material components load (or if they fail to). */
+md-tabs:not(:defined){
+    display: flex;
+    gap: 1.5rem;
+    min-height: 3rem;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+md-primary-tab:not(:defined){
+    cursor: pointer;
 }
