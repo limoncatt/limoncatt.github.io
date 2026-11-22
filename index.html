@@ -1,52 +1,252 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>limoncatt</title>
+    <title>limoncatt | Unreal Engine projects and web experiments</title>
+    <meta name="description" content="Portfolio of limoncatt: Unreal Engine game projects and a hand-built Material 3 Expressive website.">
+    <meta name="theme-color" content="#18111a">
+    <script>
+        // Runs before first paint: restore the saved theme and mark JS as available.
+        document.documentElement.classList.add('js');
+        try {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+        } catch (e) {}
+    </script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%2374009f'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23ebb2ff'/%3E%3C/svg%3E">
     <link rel="preload" href="fonts/GoogleSansFlex.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="tokens.css">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="vendor/material.js"></script>
     <script src="main.js" defer></script>
 </head>
 <body>
-    <md-tabs id="PageTabsSwitcher">
-        <md-primary-tab id="tab-home" data-action="home" aria-controls="panel-home">Home</md-primary-tab>
-        <md-primary-tab id="tab-projects" data-action="projects" aria-controls="panel-projects">Projects</md-primary-tab>
-        <md-primary-tab id="tab-github" data-action="github" aria-controls="panel-github">Github</md-primary-tab>
-        <md-primary-tab id="tab-aboutme" data-action="aboutme" aria-controls="panel-aboutme">About Me</md-primary-tab>
-    </md-tabs>
-    <main class="contentpage">
-        <section id="panel-home" class="homepage" role="tabpanel" aria-labelledby="tab-home">
-            <h1>Home</h1>
-            <p>Nothing to see on this page.</p>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <header class="app-bar" id="app-bar">
+        <a class="wordmark" href="#top" aria-label="limoncatt, back to top">limoncatt</a>
+
+        <nav class="nav" aria-label="Sections">
+            <a class="nav-item" href="#projects">Projects<md-ripple></md-ripple></a>
+            <a class="nav-item" href="#journey">Journey<md-ripple></md-ripple></a>
+            <a class="nav-item" href="#github">GitHub<md-ripple></md-ripple></a>
+            <a class="nav-item" href="#about">About<md-ripple></md-ripple></a>
+        </nav>
+
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to light theme">
+            <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <md-ripple></md-ripple>
+        </button>
+    </header>
+
+    <main id="main">
+        <!-- Hero -->
+        <section class="hero" id="top" aria-labelledby="hero-title">
+            <div class="hero-shapes" aria-hidden="true">
+                <span class="shape shape-a"></span>
+                <span class="shape shape-b"></span>
+                <span class="shape shape-c"></span>
+            </div>
+            <div class="hero-inner">
+                <p class="chip chip-hero reveal">Portfolio</p>
+                <h1 class="hero-title" id="hero-title">limoncatt</h1>
+                <p class="hero-lede reveal" style="--delay: 120ms">Building games in Unreal Engine, and this website.</p>
+                <div class="hero-actions reveal" style="--delay: 220ms">
+                    <a class="btn btn-filled btn-lg" href="#projects">
+                        See the projects
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                        <md-ripple></md-ripple>
+                    </a>
+                    <a class="btn btn-tonal btn-lg" href="https://github.com/limoncatt" target="_blank" rel="noopener">
+                        GitHub profile
+                        <md-ripple></md-ripple>
+                    </a>
+                </div>
+            </div>
+            <a class="scroll-cue" href="#numbers" aria-label="Scroll down">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+                <md-ripple></md-ripple>
+            </a>
         </section>
-        <section id="panel-projects" class="projectspage" role="tabpanel" aria-labelledby="tab-projects" hidden>
-            <h1>Projects</h1>
-            <ul>
-                <li>
-                    <h2>Material 3 Expressive Custom (this website) [Personal Project used as a portfolio]</h2>
-                    <p>This project does not in any way meet the Material 3 Expressive design rules made up by google but it is meant to replicate material's behaviour and look like it directly even if not meeting the criteria.</p>
-                </li>
-                <li>
-                    <h2>Project South (Unreal Engine) [Cancelled]</h2>
-                    <p>Development started in early 2023 continuing into 2025 but cancelled in 2026 due to a LOT of broken, outdated, unoptimized and straight up spaghetti code.</p>
-                </li>
-                <li>
-                    <h2>Project Material (Unreal Engine) [Prototyping phase]</h2>
-                    <p>Development started in January of 2026, a replacement for Project South, but based on an older version of Unreal Engine (5.4.4), is supposed to be a run-based singleplayer resource harvesting game something like R.E.P.O. by semiwork.</p>
-                </li>
-            </ul>
+
+        <!-- Numbers -->
+        <section class="section" id="numbers" aria-label="At a glance">
+            <div class="wrap stats">
+                <article class="stat stat-primary reveal">
+                    <p class="stat-value"><span data-count="3" data-from="0">3</span></p>
+                    <p class="stat-label">Projects, including this website</p>
+                </article>
+                <article class="stat stat-secondary reveal" style="--delay: 80ms">
+                    <p class="stat-value"><span data-count="2023" data-from="2000">2023</span></p>
+                    <p class="stat-label">The year Project South started</p>
+                </article>
+                <article class="stat stat-tertiary reveal" style="--delay: 160ms">
+                    <p class="stat-value">5.4.4</p>
+                    <p class="stat-label">Unreal Engine version behind Project Material</p>
+                </article>
+                <article class="stat stat-neutral reveal" style="--delay: 240ms">
+                    <p class="stat-value"><span data-count="1" data-from="0">1</span></p>
+                    <p class="stat-label">Project cancelled, in 2026</p>
+                </article>
+            </div>
         </section>
-        <section id="panel-github" class="githubpage" role="tabpanel" aria-labelledby="tab-github" hidden>
-            <h1>Github Page</h1>
-            <md-filled-button href="https://github.com/limoncatt" target="_blank">
-                Redirect to my Github profile
-            </md-filled-button>
+
+        <!-- Projects -->
+        <section class="section" id="projects" aria-labelledby="projects-title">
+            <div class="wrap">
+                <h2 class="section-title" id="projects-title">Projects</h2>
+
+                <div class="stack">
+                    <article class="project-card card-secondary" style="--i: 0">
+                        <div class="card-body">
+                            <span class="card-shape" aria-hidden="true"></span>
+                            <div class="chips">
+                                <span class="chip">Personal project</span>
+                                <span class="chip">Portfolio</span>
+                            </div>
+                            <div class="card-text">
+                                <h3 class="card-title">Material 3 Expressive Custom</h3>
+                                <p class="card-subtitle">This website</p>
+                                <p>A personal project used as a portfolio. It follows Material 3 Expressive's ideas of spring motion, emphasized variable type, morphing shapes and vibrant colour, written by hand in CSS on top of Material Web.</p>
+                                <div class="chips">
+                                    <span class="chip chip-ghost">HTML</span>
+                                    <span class="chip chip-ghost">CSS</span>
+                                    <span class="chip chip-ghost">JavaScript</span>
+                                    <span class="chip chip-ghost">Material Web</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card card-tertiary" style="--i: 1">
+                        <div class="card-body">
+                            <span class="card-shape" aria-hidden="true"></span>
+                            <div class="chips">
+                                <span class="chip">Cancelled</span>
+                                <span class="chip">2023 to 2026</span>
+                            </div>
+                            <div class="card-text">
+                                <h3 class="card-title">Project South</h3>
+                                <p class="card-subtitle">Unreal Engine</p>
+                                <p>Development started in early 2023 continuing into 2025 but cancelled in 2026 due to a LOT of broken, outdated, unoptimized and straight up spaghetti code.</p>
+                                <div class="chips">
+                                    <span class="chip chip-ghost">Unreal Engine</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card card-primary" style="--i: 2">
+                        <div class="card-body">
+                            <span class="card-shape" aria-hidden="true"></span>
+                            <div class="chips">
+                                <span class="chip">Prototyping phase</span>
+                                <span class="chip">Since January 2026</span>
+                            </div>
+                            <div class="card-text">
+                                <h3 class="card-title">Project Material</h3>
+                                <p class="card-subtitle">Unreal Engine 5.4.4</p>
+                                <p>A replacement for Project South, but based on an older version of Unreal Engine (5.4.4). It is supposed to be a run-based singleplayer resource harvesting game something like R.E.P.O. by semiwork.</p>
+                                <div class="chips">
+                                    <span class="chip chip-ghost">Unreal Engine 5.4.4</span>
+                                    <span class="chip chip-ghost">Singleplayer</span>
+                                    <span class="chip chip-ghost">Run-based</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
         </section>
-        <section id="panel-aboutme" class="aboutmepage" role="tabpanel" aria-labelledby="tab-aboutme" hidden>
-            <h1>About me</h1>
+
+        <!-- Journey -->
+        <section class="section" id="journey" aria-labelledby="journey-title">
+            <div class="wrap">
+                <h2 class="section-title" id="journey-title">The journey</h2>
+
+                <ol class="timeline">
+                    <li class="timeline-item reveal">
+                        <p class="timeline-when">Early 2023</p>
+                        <div class="timeline-what">
+                            <h3>Project South begins</h3>
+                            <p>Development starts in Unreal Engine.</p>
+                        </div>
+                    </li>
+                    <li class="timeline-item reveal">
+                        <p class="timeline-when">2025</p>
+                        <div class="timeline-what">
+                            <h3>Still going</h3>
+                            <p>Project South keeps going well into 2025.</p>
+                        </div>
+                    </li>
+                    <li class="timeline-item reveal">
+                        <p class="timeline-when">2026</p>
+                        <div class="timeline-what">
+                            <h3>A fresh start</h3>
+                            <p>Project South is cancelled over broken, outdated, unoptimized spaghetti code. In January, Project Material starts on Unreal Engine 5.4.4 as its replacement.</p>
+                        </div>
+                    </li>
+                    <li class="timeline-item reveal">
+                        <p class="timeline-when">Now</p>
+                        <div class="timeline-what">
+                            <h3>Prototyping</h3>
+                            <p>Project Material is in its prototyping phase.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- GitHub -->
+        <section class="section" id="github" aria-labelledby="github-title">
+            <div class="wrap">
+                <div class="github-card reveal">
+                    <div class="marquee" aria-hidden="true">
+                        <div class="marquee-track">
+                            <span>limoncatt</span><span>github.com/limoncatt</span><span>limoncatt</span><span>github.com/limoncatt</span>
+                            <span>limoncatt</span><span>github.com/limoncatt</span><span>limoncatt</span><span>github.com/limoncatt</span>
+                        </div>
+                    </div>
+                    <div class="github-content">
+                        <h2 class="github-title" id="github-title">Come look at the code</h2>
+                        <p>Everything I build lives on GitHub.</p>
+                        <a class="btn btn-filled btn-lg" href="https://github.com/limoncatt" target="_blank" rel="noopener">
+                            Open my GitHub profile
+                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"/></svg>
+                            <md-ripple></md-ripple>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="section" id="about" aria-labelledby="about-title">
+            <div class="wrap">
+                <h2 class="section-title" id="about-title">About me</h2>
+                <div class="about">
+                    <p class="about-text reveal">I make games in Unreal Engine and tinker with the web. After a project collapsed under its own spaghetti code, I started over with a cleaner plan: a run-based, singleplayer resource harvesting game.</p>
+                    <ul class="about-chips reveal" style="--delay: 120ms" aria-label="Interests">
+                        <li class="chip">Unreal Engine</li>
+                        <li class="chip">Game development</li>
+                        <li class="chip">Web</li>
+                        <li class="chip">Material Design</li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </main>
+
+    <footer class="footer">
+        <p>limoncatt. Built with Material Web and Google Sans Flex.</p>
+    </footer>
+
+    <a class="fab" id="fab" href="#top" aria-label="Back to top" tabindex="-1">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+        <md-ripple></md-ripple>
+    </a>
 </body>
 </html>
