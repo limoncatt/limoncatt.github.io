@@ -26,6 +26,8 @@ if (window.matchMedia('(hover: hover)').matches && !window.matchMedia('(prefers-
 //                    The content at the very rim is magnified by 1 / (1 - strength): 0.9 is 10x,
 //                    0.95 is 20x. 0 turns the lens off.
 //   --lens-rim       px, default 20. How wide the stretching band is.
+//   --lens-curve     >= 1, default 1. 1 stretches the whole band evenly (wide smears), higher
+//                    concentrates the stretch at the very edge.
 // Strength is capped below 1 on purpose. At 1 or more the image folds over itself, which is the
 // "things flip upside down" bug; below 1 the mapping can never reverse.
 //
@@ -36,7 +38,7 @@ const LENS_SELECTOR = '.nav, .icon-button, .fab, .scroll-cue';
 const DEFAULT_STRENGTH = 0.9;
 const DEFAULT_RIM = 20;   // px
 const MAX_STRENGTH = 0.98;
-const P = 1.6;            // profile exponent: lower reaches further into the band, higher hugs the edge
+const DEFAULT_CURVE = 1.0; // profile exponent: lower stretches further into the band, higher hugs the edge
 const MAP_SCALE = 2;      // map resolution multiplier, for smooth edges on high-DPI screens
 
 const supportsLens = CSS.supports('backdrop-filter', 'url(#x)') || CSS.supports('-webkit-backdrop-filter', 'url(#x)');
@@ -56,7 +58,7 @@ if (supportsLens) {
         return Number.isFinite(value) ? value : fallback;
     };
 
-    const lensMap = (width, height, radius, strength, rimWanted) => {
+    const lensMap = (width, height, radius, strength, rimWanted, P) => {
         const rim = Math.max(1, Math.min(rimWanted, Math.min(width, height) * 0.4));
         const maxPush = (strength * rim) / P;
         const canvas = document.createElement('canvas');
@@ -123,11 +125,12 @@ if (supportsLens) {
         const radius = Math.min(cssRadius, width / 2, height / 2);
         const strength = Math.min(Math.max(readNumber(style, '--lens-strength', DEFAULT_STRENGTH), 0), MAX_STRENGTH);
         const rimWanted = Math.max(readNumber(style, '--lens-rim', DEFAULT_RIM), 1);
+        const P = Math.max(readNumber(style, '--lens-curve', DEFAULT_CURVE), 1);
         if (strength === 0) {
             el.style.removeProperty('--lens');
             return;
         }
-        const {url, scale} = lensMap(width, height, radius, strength, rimWanted);
+        const {url, scale} = lensMap(width, height, radius, strength, rimWanted, P);
 
         let id = lenses.get(el);
         if (!id) {
