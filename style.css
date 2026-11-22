@@ -330,7 +330,7 @@ h1, h2, h3, p { margin: 0; }
 }
 
 .stat {
-    /* Container query units size the number to the card, so "2023" and "5.4.4" never overflow. */
+    /* Container query units size the number to the card, so four-digit years like "2023" never overflow. */
     container-type: inline-size;
     min-width: 0;
     display: flex;
