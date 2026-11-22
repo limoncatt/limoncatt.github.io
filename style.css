@@ -172,7 +172,9 @@ h1, h2, h3, p { margin: 0; }
     height: 3rem;
     padding: 0;
     border: 0;
-    border-radius: var(--shape-corner-full);
+    /* Half the size, not 9999px: a huge radius is clamped by the browser, so transitioning from it
+       sits flat for almost the whole duration and then snaps. */
+    border-radius: 1.5rem;
     background: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-on-surface);
     cursor: pointer;
@@ -553,7 +555,7 @@ h1, h2, h3, p { margin: 0; }
         opacity var(--motion-effects-default-duration) var(--motion-effects-default),
         scale var(--motion-spatial-default-duration) var(--motion-spatial-default);
 }
-.fab:hover { border-radius: var(--shape-corner-full); }
+.fab:hover { border-radius: 1.75rem; }  /* half of 3.5rem: finite, so it animates smoothly */
 .js .fab { opacity: 0; scale: 0.5; pointer-events: none; }
 .js .fab.fab-visible { opacity: 1; scale: 1; pointer-events: auto; }
 

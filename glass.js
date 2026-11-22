@@ -115,9 +115,10 @@ if (supportsLens) {
     let counter = 0;
 
     const build = (el) => {
-        const rect = el.getBoundingClientRect();
-        const width = Math.round(rect.width);
-        const height = Math.round(rect.height);
+        // Layout size, not getBoundingClientRect(): the latter includes transforms and the `scale`
+        // property, so a button that is hidden at scale 0.5 got a half-size map (one quarter of it).
+        const width = el.offsetWidth;
+        const height = el.offsetHeight;
         if (!width || !height) return;
 
         const style = getComputedStyle(el);
@@ -167,7 +168,13 @@ if (supportsLens) {
             scheduled = 0;
         });
     });
-    document.querySelectorAll(LENS_SELECTOR).forEach((el) => observer.observe(el));
+    document.querySelectorAll(LENS_SELECTOR).forEach((el) => {
+        observer.observe(el);
+        // Hover and press morph the corner radius; refit the map to the shape it ends up with.
+        el.addEventListener('transitionend', (event) => {
+            if (event.target === el && event.propertyName.startsWith('border')) build(el);
+        });
+    });
 
     // Rebuild when the theme or the tuning variables change (they live on :root or on the element).
     new MutationObserver(() => document.querySelectorAll(LENS_SELECTOR).forEach(build))
