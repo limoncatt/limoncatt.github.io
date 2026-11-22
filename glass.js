@@ -30,7 +30,7 @@ if (window.matchMedia('(hover: hover)').matches && !window.matchMedia('(prefers-
 // things flipping upside down; staying below 1 guarantees the mapping never reverses.
 const LENS_SELECTOR = '.nav, .icon-button, .fab, .scroll-cue';
 const RIM_MAX = 14;       // px, width of the bending band
-const SLOPE = 0.84;       // steepest slope of the displacement profile (must stay < 1)
+const SLOPE = 1;       // steepest slope of the displacement profile (must stay < 1)
 const MAP_SCALE = 2;      // map resolution multiplier, for smooth edges on high-DPI screens
 
 const supportsLens = CSS.supports('backdrop-filter', 'url(#x)') || CSS.supports('-webkit-backdrop-filter', 'url(#x)');
