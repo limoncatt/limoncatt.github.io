@@ -18,19 +18,25 @@ if (window.matchMedia('(hover: hover)').matches && !window.matchMedia('(prefers-
 }
 
 // ---------------------------------------------------------------- lens (Chromium: SVG backdrop filters)
-// A convex glass edge bends the backdrop only in a thin band along the rim, following the
-// element's real rounded outline, and leaves the middle untouched.
+// A convex glass edge bends the backdrop only in a band along the rim, following the element's
+// real rounded outline, and leaves the middle untouched.
 //
-// For each lens element we draw a displacement map with the same size and corner radius:
-//   - distance to the outline comes from a rounded-rectangle signed distance field,
-//   - the push direction is the outline's normal (so corners bend around the curve),
-//   - strength falls off smoothly to zero at the inner edge of the band.
-// The maximum push S and the band width RIM are chosen so the profile's steepest slope is
-// 2*S/RIM = 0.84 < 1. A slope of 1 or more makes the image fold over itself, which looks like
-// things flipping upside down; staying below 1 guarantees the mapping never reverses.
+// Tuning (set on :root or on a single element in CSS):
+//   --lens-strength  0..0.98, default 0.9. How hard the edge stretches what is underneath.
+//                    The content at the very rim is magnified by 1 / (1 - strength): 0.9 is 10x,
+//                    0.95 is 20x. 0 turns the lens off.
+//   --lens-rim       px, default 20. How wide the stretching band is.
+// Strength is capped below 1 on purpose. At 1 or more the image folds over itself, which is the
+// "things flip upside down" bug; below 1 the mapping can never reverse.
+//
+// Maths: the backdrop at depth u (px inside the outline) is sampled from depth u + push(u), with
+// push(u) = S * t^P, t = 1 - u / rim. Its slope is at most strength, so the sampling position is
+// always increasing in u: stretched, never folded.
 const LENS_SELECTOR = '.nav, .icon-button, .fab, .scroll-cue';
-const RIM_MAX = 14;       // px, width of the bending band
-const SLOPE = 1;       // steepest slope of the displacement profile (must stay < 1)
+const DEFAULT_STRENGTH = 0.9;
+const DEFAULT_RIM = 20;   // px
+const MAX_STRENGTH = 0.98;
+const P = 1.6;            // profile exponent: lower reaches further into the band, higher hugs the edge
 const MAP_SCALE = 2;      // map resolution multiplier, for smooth edges on high-DPI screens
 
 const supportsLens = CSS.supports('backdrop-filter', 'url(#x)') || CSS.supports('-webkit-backdrop-filter', 'url(#x)');
@@ -45,9 +51,14 @@ if (supportsLens) {
     host.style.position = 'absolute';
     document.body.prepend(host);
 
-    const lensMap = (width, height, radius) => {
-        const rim = Math.min(RIM_MAX, Math.min(width, height) / 2);
-        const maxPush = (SLOPE * rim) / 2;
+    const readNumber = (style, name, fallback) => {
+        const value = parseFloat(style.getPropertyValue(name));
+        return Number.isFinite(value) ? value : fallback;
+    };
+
+    const lensMap = (width, height, radius, strength, rimWanted) => {
+        const rim = Math.max(1, Math.min(rimWanted, Math.min(width, height) * 0.4));
+        const maxPush = (strength * rim) / P;
         const canvas = document.createElement('canvas');
         canvas.width = Math.max(1, Math.round(width * MAP_SCALE));
         canvas.height = Math.max(1, Math.round(height * MAP_SCALE));
@@ -83,7 +94,7 @@ if (supportsLens) {
                 let dy = 0;
                 if (depth < rim) {
                     const t = 1 - Math.max(depth, 0) / rim;      // 1 at the outline, 0 at the inner edge
-                    const push = maxPush * t * t;                // smooth, zero slope at the inner edge
+                    const push = maxPush * Math.pow(t, P);       // smooth, reaches zero at the inner edge
                     dx = -nx * push;                             // sample from slightly further inside
                     dy = -ny * push;
                 }
@@ -107,9 +118,16 @@ if (supportsLens) {
         const height = Math.round(rect.height);
         if (!width || !height) return;
 
-        const cssRadius = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0;
+        const style = getComputedStyle(el);
+        const cssRadius = parseFloat(style.borderTopLeftRadius) || 0;
         const radius = Math.min(cssRadius, width / 2, height / 2);
-        const {url, scale} = lensMap(width, height, radius);
+        const strength = Math.min(Math.max(readNumber(style, '--lens-strength', DEFAULT_STRENGTH), 0), MAX_STRENGTH);
+        const rimWanted = Math.max(readNumber(style, '--lens-rim', DEFAULT_RIM), 1);
+        if (strength === 0) {
+            el.style.removeProperty('--lens');
+            return;
+        }
+        const {url, scale} = lensMap(width, height, radius, strength, rimWanted);
 
         let id = lenses.get(el);
         if (!id) {
@@ -147,4 +165,8 @@ if (supportsLens) {
         });
     });
     document.querySelectorAll(LENS_SELECTOR).forEach((el) => observer.observe(el));
+
+    // Rebuild when the theme or the tuning variables change (they live on :root or on the element).
+    new MutationObserver(() => document.querySelectorAll(LENS_SELECTOR).forEach(build))
+        .observe(document.documentElement, {attributes: true, attributeFilter: ['style', 'class', 'data-theme']});
 }
