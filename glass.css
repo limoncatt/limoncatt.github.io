@@ -160,13 +160,16 @@ body::before {
 .card-body .chip { background: color-mix(in srgb, var(--card-fg) 14%, transparent); }
 
 /* ---------------------------------------------------------------- liquid refraction (Chromium only)
-   backdrop-filter: url(#...) lets an SVG displacement map bend the backdrop at the edges, like a
-   lens. Browsers that do not support it ignore these declarations and keep the plain blur above. */
-/* ":root:root" raises specificity above the :is() surface rule, which would otherwise win and
-   silently leave these as a plain blur. */
-@supports (backdrop-filter: url(#lg-refract-pill)) {
-    :root:root .nav { -webkit-backdrop-filter: url(#lg-refract-pill) blur(1px) saturate(1.8); backdrop-filter: url(#lg-refract-pill) blur(1px) saturate(1.8); }
-    :root:root :is(.icon-button, .fab, .scroll-cue) { -webkit-backdrop-filter: url(#lg-refract-round) blur(1px) saturate(1.8); backdrop-filter: url(#lg-refract-round) blur(1px) saturate(1.8); }
+   glass.js draws a displacement map per lens element, matching its real size and corner radius,
+   and sets it as --lens. The map bends the backdrop only in a thin band along the rim, and its
+   slope stays below 1 so the image never folds over itself.
+   With no JS or no support, --lens is unset and falls back to blur(0px): plain blur, no lens.
+   ":root:root" raises specificity above the :is() surface rule, which would otherwise win. */
+@supports (backdrop-filter: url(#lens)) {
+    :root:root :is(.nav, .icon-button, .fab, .scroll-cue) {
+        -webkit-backdrop-filter: var(--lens, blur(0px)) blur(1px) saturate(1.8);
+        backdrop-filter: var(--lens, blur(0px)) blur(1px) saturate(1.8);
+    }
 }
 
 /* ---------------------------------------------------------------- fallbacks */
