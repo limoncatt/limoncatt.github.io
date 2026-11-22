@@ -4,12 +4,15 @@
   "description": "Personal site. Material Web is bundled locally so the page does not depend on a CDN at runtime.",
   "type": "module",
   "scripts": {
-    "build": "esbuild src/material.js --bundle --minify --format=esm --outfile=vendor/material.js"
+    "tokens": "esbuild scripts/generate-tokens.mjs --bundle --platform=node --format=esm --outfile=node_modules/.cache/generate-tokens.mjs --log-level=warning && node node_modules/.cache/generate-tokens.mjs",
+    "bundle": "esbuild src/material.js --bundle --minify --format=esm --outfile=vendor/material.js",
+    "build": "npm run tokens && npm run bundle"
   },
   "dependencies": {
     "@material/web": "2.5.0"
   },
   "devDependencies": {
+    "@material/material-color-utilities": "^0.4.0",
     "esbuild": "^0.25.0"
   }
 }
