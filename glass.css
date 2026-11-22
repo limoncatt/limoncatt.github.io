@@ -9,7 +9,8 @@
    ========================================================================== */
 
 :root {
-    --glass-blur: 22px;
+    /* Sharp glass: only the slightest blur, so edges and background detail stay crisp. */
+    --glass-blur: 3px;
     --glass-saturate: 1.7;
     --glass-edge: rgb(255 255 255 / 0.5);
     --glass-edge-dim: rgb(255 255 255 / 0.06);
@@ -94,7 +95,7 @@ body::before {
 .stat-neutral         { --tint: var(--md-sys-color-surface-container-highest); }
 .card-body            { --tint: var(--card-bg); }
 .github-card          { --tint: var(--md-sys-color-tertiary-container); }
-.nav                  { --tint: var(--md-sys-color-surface-container-highest); --glass-blur: 14px; }
+.nav                  { --tint: var(--md-sys-color-surface-container-highest); --glass-blur: 1.5px; }
 
 /* The cards' own background token still drives colour; make sure the old solid fill is replaced. */
 .card-body, .github-card, .stat { background-clip: padding-box; }
@@ -148,8 +149,12 @@ body::before {
 .card-body > .card-shape { position: absolute; z-index: -1; }
 .marquee { z-index: 0; }
 
-/* Cards are tall; give their glass a gentler blur so stacked cards read as layers. */
-.card-body { --glass-blur: 28px; }
+/* Cards stack over each other and the nav floats over scrolling text, so with a sharp blur the
+   tint has to stay dense enough to keep text readable. These are the lowest round values that
+   pass WCAG AA in both themes with a margin (measured: cards need >= 72% in light, the nav
+   dropped to 4.25:1 at the default tint in dark). */
+.card-body { --glass-blur: 4px; --glass-tint-strength: 80%; }
+.nav       { --glass-tint-strength: 82%; }
 
 /* Cards recede with brightness() in style.css; keep their glass from going muddy. */
 .card-body .chip { background: color-mix(in srgb, var(--card-fg) 14%, transparent); }
@@ -160,8 +165,8 @@ body::before {
 /* ":root:root" raises specificity above the :is() surface rule, which would otherwise win and
    silently leave these as a plain blur. */
 @supports (backdrop-filter: url(#lg-refract-pill)) {
-    :root:root .nav { -webkit-backdrop-filter: url(#lg-refract-pill) blur(6px) saturate(1.8); backdrop-filter: url(#lg-refract-pill) blur(6px) saturate(1.8); }
-    :root:root :is(.icon-button, .fab, .scroll-cue) { -webkit-backdrop-filter: url(#lg-refract-round) blur(5px) saturate(1.8); backdrop-filter: url(#lg-refract-round) blur(5px) saturate(1.8); }
+    :root:root .nav { -webkit-backdrop-filter: url(#lg-refract-pill) blur(1px) saturate(1.8); backdrop-filter: url(#lg-refract-pill) blur(1px) saturate(1.8); }
+    :root:root :is(.icon-button, .fab, .scroll-cue) { -webkit-backdrop-filter: url(#lg-refract-round) blur(1px) saturate(1.8); backdrop-filter: url(#lg-refract-round) blur(1px) saturate(1.8); }
 }
 
 /* ---------------------------------------------------------------- fallbacks */
