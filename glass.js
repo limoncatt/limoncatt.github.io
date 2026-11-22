@@ -27,6 +27,7 @@ if (window.matchMedia('(hover: hover)').matches && !window.matchMedia('(prefers-
 //   --lens-strength  0..0.98, default 0.5. How hard the very rim is magnified: 1 / (1 - strength),
 //                    so 0.5 is 2x (subtle), 0.9 is 10x (heavy). 0 turns the lens off.
 //   --lens-rim       px, default 24. How wide the band is in which the magnification builds up.
+//   --lens-dispersion 0..0.6, default 0.35. Colour fringing at the rim (red and blue bend differently).
 //   --lens-curve     >= 1, default 1.5. Higher keeps the middle of the band calmer and crowds the
 //                    magnification towards the edge.
 // Strength is scaled against a fold limit: the map is sampled at c + (p - c) * (1 - k * s(depth)),
@@ -37,6 +38,7 @@ const DEFAULT_STRENGTH = 0.5;
 const DEFAULT_RIM = 24;   // px
 const MAX_STRENGTH = 0.98;
 const DEFAULT_CURVE = 1.5;
+const DEFAULT_DISPERSION = 0.35;   // colour fringing at the rim, 0 = none
 const MAP_SCALE = 2;      // map resolution multiplier, for smooth edges on high-DPI screens
 
 const supportsLens = CSS.supports('backdrop-filter', 'url(#x)') || CSS.supports('-webkit-backdrop-filter', 'url(#x)');
@@ -143,9 +145,23 @@ if (supportsLens) {
         filter.setAttribute('width', String(width));
         filter.setAttribute('height', String(height));
         filter.setAttribute('color-interpolation-filters', 'sRGB');
+        // Dispersion: glass bends blue more than red, so each colour channel is displaced by a
+        // slightly different amount and the three are added back together. Colour fringes appear
+        // only where the lens actually bends the image (the rim).
+        const dispersion = Math.min(Math.max(readNumber(style, '--lens-dispersion', DEFAULT_DISPERSION), 0), 0.6);
+        const channel = (name, factor, matrix) =>
+            `<feDisplacementMap in="SourceGraphic" in2="map" scale="${(scale * factor).toFixed(3)}" xChannelSelector="R" yChannelSelector="G" result="d${name}"/>` +
+            `<feColorMatrix in="d${name}" type="matrix" values="${matrix}" result="c${name}"/>`;
+        const channels = dispersion > 0.001
+            ? channel('r', 1 - dispersion, '1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0') +
+              channel('g', 1, '0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0') +
+              channel('b', 1 + dispersion, '0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0') +
+              '<feComposite in="cr" in2="cg" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="rg"/>' +
+              '<feComposite in="rg" in2="cb" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>'
+            : `<feDisplacementMap in="SourceGraphic" in2="map" scale="${scale}" xChannelSelector="R" yChannelSelector="G"/>`;
         filter.innerHTML =
             `<feImage href="${url}" x="0" y="0" width="${width}" height="${height}" preserveAspectRatio="none" result="map"/>` +
-            `<feDisplacementMap in="SourceGraphic" in2="map" scale="${scale}" xChannelSelector="R" yChannelSelector="G"/>`;
+            channels;
         el.style.setProperty('--lens', `url(#${id})`);
     };
 

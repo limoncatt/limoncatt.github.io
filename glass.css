@@ -114,6 +114,15 @@ body::before {
 .stat, .scroll-cue, .chip-hero, .about-chips .chip { position: relative; }
 @media (min-width: 721px) { .nav { position: relative; } }
 
+/* Glass has thickness: light pools along the lit (top-left) and the opposite (bottom-right) lip. */
+:is(.nav, .icon-button, .fab, .scroll-cue) {
+    box-shadow:
+        inset 1.5px 1.5px 3px -0.5px rgb(255 255 255 / 0.55),
+        inset -1.5px -1.5px 3px -0.5px rgb(255 255 255 / 0.28),
+        inset 0 0 14px rgb(255 255 255 / 0.07),
+        var(--glass-shadow);
+}
+
 /* Bright rim that fades along the surface, like light catching a bevel. */
 :is(.nav, .icon-button, .fab, .scroll-cue, .btn-tonal, .stat, .card-body, .github-card, .chip-hero, .about-chips .chip)::after {
     content: "";
@@ -154,7 +163,8 @@ body::before {
    pass WCAG AA in both themes with a margin (measured: cards need >= 72% in light, the nav
    dropped to 4.25:1 at the default tint in dark). */
 .card-body { --glass-blur: 4px; --glass-tint-strength: 80%; }
-.nav       { --glass-tint-strength: 82%; }
+.nav       { --glass-tint-strength: 68%; }
+:root:not([data-theme="light"]) .nav { --tint: var(--md-sys-color-surface-container-lowest); --glass-tint-strength: 62%; }
 
 /* Cards recede with brightness() in style.css; keep their glass from going muddy. */
 .card-body .chip { background: color-mix(in srgb, var(--card-fg) 14%, transparent); }
