@@ -200,7 +200,7 @@ h1, h2, h3, p { margin: 0; }
     height: 3rem;
     padding: 0 1.5rem;
     border: 0;
-    border-radius: var(--shape-corner-full);
+    border-radius: 1.5rem;   /* half the height; see the note on .icon-button */
     font: inherit;
     font-size: 1rem;
     font-weight: 700;
@@ -212,7 +212,7 @@ h1, h2, h3, p { margin: 0; }
         border-radius var(--motion-spatial-fast-duration) var(--motion-spatial-fast),
         scale var(--motion-spatial-fast-duration) var(--motion-spatial-fast);
 }
-.btn-lg { height: 4rem; padding: 0 2rem; font-size: 1.125rem; }
+.btn-lg { height: 4rem; border-radius: 2rem; padding: 0 2rem; font-size: 1.125rem; }
 .btn:hover { border-radius: var(--shape-corner-lg); }
 .btn:active { border-radius: var(--shape-corner-md); scale: 0.97; }
 .btn-filled { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); }
