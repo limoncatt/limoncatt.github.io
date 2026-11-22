@@ -18,27 +18,25 @@ if (window.matchMedia('(hover: hover)').matches && !window.matchMedia('(prefers-
 }
 
 // ---------------------------------------------------------------- lens (Chromium: SVG backdrop filters)
-// A convex glass edge bends the backdrop only in a band along the rim, following the element's
-// real rounded outline, and leaves the middle untouched.
+// A convex glass edge magnifies the backdrop more and more towards the rim, in every direction,
+// and leaves the middle untouched. It is a zoom about the element's centre whose strength grows
+// towards the outline, so near the edge things spread outwards both across the edge (stretched)
+// and along it (widened), and more so the closer they are.
 //
 // Tuning (set on :root or on a single element in CSS):
-//   --lens-strength  0..0.98, default 0.9. How hard the edge stretches what is underneath.
-//                    The content at the very rim is magnified by 1 / (1 - strength): 0.9 is 10x,
-//                    0.95 is 20x. 0 turns the lens off.
-//   --lens-rim       px, default 20. How wide the stretching band is.
-//   --lens-curve     >= 1, default 1. 1 stretches the whole band evenly (wide smears), higher
-//                    concentrates the stretch at the very edge.
-// Strength is capped below 1 on purpose. At 1 or more the image folds over itself, which is the
-// "things flip upside down" bug; below 1 the mapping can never reverse.
-//
-// Maths: the backdrop at depth u (px inside the outline) is sampled from depth u + push(u), with
-// push(u) = S * t^P, t = 1 - u / rim. Its slope is at most strength, so the sampling position is
-// always increasing in u: stretched, never folded.
+//   --lens-strength  0..0.98, default 0.5. How hard the very rim is magnified: 1 / (1 - strength),
+//                    so 0.5 is 2x (subtle), 0.9 is 10x (heavy). 0 turns the lens off.
+//   --lens-rim       px, default 24. How wide the band is in which the magnification builds up.
+//   --lens-curve     >= 1, default 1.5. Higher keeps the middle of the band calmer and crowds the
+//                    magnification towards the edge.
+// Strength is scaled against a fold limit: the map is sampled at c + (p - c) * (1 - k * s(depth)),
+// and k is chosen so that the local Jacobian always keeps eigenvalues >= 1 - strength > 0. A
+// mapping with a positive determinant cannot fold, which is the "things flip upside down" bug.
 const LENS_SELECTOR = '.nav, .icon-button, .fab, .scroll-cue';
-const DEFAULT_STRENGTH = 0.9;
-const DEFAULT_RIM = 20;   // px
+const DEFAULT_STRENGTH = 0.5;
+const DEFAULT_RIM = 24;   // px
 const MAX_STRENGTH = 0.98;
-const DEFAULT_CURVE = 1.0; // profile exponent: lower stretches further into the band, higher hugs the edge
+const DEFAULT_CURVE = 1.5;
 const MAP_SCALE = 2;      // map resolution multiplier, for smooth edges on high-DPI screens
 
 const supportsLens = CSS.supports('backdrop-filter', 'url(#x)') || CSS.supports('-webkit-backdrop-filter', 'url(#x)');
@@ -59,15 +57,21 @@ if (supportsLens) {
     };
 
     const lensMap = (width, height, radius, strength, rimWanted, P) => {
-        const rim = Math.max(1, Math.min(rimWanted, Math.min(width, height) * 0.4));
-        const maxPush = (strength * rim) / P;
+        const rim = Math.max(1, Math.min(rimWanted, Math.min(width, height) * 0.45));
+        const halfW = width / 2;
+        const halfH = height / 2;
+        // Fold limit. Zoom about the centre with weight s(depth): the Jacobian is
+        // (1 - k s) I - k p (grad s)^T. Its eigenvalues are (1 - k s) and (1 - k s) - k p.grad s,
+        // and |p.grad s| <= diag * P / rim, so k = strength / (1 + diag * P / rim) keeps both
+        // >= 1 - strength.
+        const diag = Math.hypot(halfW, halfH);
+        const k = strength / (1 + (diag * P) / rim);
+        const maxPush = k * Math.max(halfW, halfH);     // largest possible displacement, for encoding
         const canvas = document.createElement('canvas');
         canvas.width = Math.max(1, Math.round(width * MAP_SCALE));
         canvas.height = Math.max(1, Math.round(height * MAP_SCALE));
         const ctx = canvas.getContext('2d');
         const image = ctx.createImageData(canvas.width, canvas.height);
-        const halfW = width / 2;
-        const halfH = height / 2;
         const innerX = halfW - radius;
         const innerY = halfH - radius;
 
@@ -77,28 +81,17 @@ if (supportsLens) {
                 const py = (y + 0.5) / MAP_SCALE - halfH;
                 const qx = Math.abs(px) - innerX;
                 const qy = Math.abs(py) - innerY;
-                // Rounded-rectangle signed distance (negative inside) and outward normal.
+                // Rounded-rectangle signed distance (negative inside).
                 const outside = Math.hypot(Math.max(qx, 0), Math.max(qy, 0));
-                const signed = outside + Math.min(Math.max(qx, qy), 0) - radius;
-                const depth = -signed;                          // how far inside the outline
-                let nx = 0;
-                let ny = 0;
-                if (qx > 0 && qy > 0) {
-                    nx = (qx / outside) * Math.sign(px);
-                    ny = (qy / outside) * Math.sign(py);
-                } else if (qx > qy) {
-                    nx = Math.sign(px);
-                } else {
-                    ny = Math.sign(py);
-                }
+                const depth = radius - (outside + Math.min(Math.max(qx, qy), 0));   // how far inside the outline
 
                 let dx = 0;
                 let dy = 0;
                 if (depth < rim) {
                     const t = 1 - Math.max(depth, 0) / rim;      // 1 at the outline, 0 at the inner edge
-                    const push = maxPush * Math.pow(t, P);       // smooth, reaches zero at the inner edge
-                    dx = -nx * push;                             // sample from slightly further inside
-                    dy = -ny * push;
+                    const weight = k * Math.pow(t, P);
+                    dx = -px * weight;                           // sample from nearer the centre: magnifies
+                    dy = -py * weight;
                 }
                 const i = (y * canvas.width + x) * 4;
                 image.data[i] = Math.round(255 * (0.5 + dx / (2 * maxPush)));
