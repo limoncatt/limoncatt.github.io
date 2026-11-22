@@ -407,6 +407,14 @@ h1, h2, h3, p { margin: 0; }
 }
 .card-body .chip-ghost { background: transparent; border: 1px solid color-mix(in srgb, var(--card-fg) 45%, transparent); }
 
+/* A button that inverts the card's own colours, so it has contrast on any card. */
+.btn-card {
+    justify-self: start;
+    margin-top: 0.5rem;
+    background: var(--card-fg);
+    color: var(--card-bg);
+}
+
 .card-text { display: grid; gap: 0.9rem; max-width: 46rem; }
 .card-text .chips { margin-top: 0.5rem; }
 .card-title {
